@@ -1,0 +1,21 @@
+service: screenshot-service
+
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+
+functions:
+  capture:
+    handler: handler.capture
+    events:
+      - http:
+          path: capture
+          method: get
+    memorySize: 1536
+    timeout: 15
+    layers:
+      # https://github.com/shelfio/chrome-aws-lambda-layer#available-regions
+      - arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda:38
